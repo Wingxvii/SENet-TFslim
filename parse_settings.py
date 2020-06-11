@@ -36,21 +36,24 @@ data = {
     'sync_replicas': False,
     'replicas_to_aggregate': 1,
     'moving_average_decay': None,
-    'dataset_name': 'imagenet',
+    'dataset_name': 'cifar10',
     'dataset_split_name': 'train',
-    'dataset_dir': None,
+    'dataset_dir': '/tmp/cifar10/',
     'labels_offset': 0,
-    'model_name': 'inception_v3',
+    'model_name': 'resnet_v1_50',
     'preprocessing_name': None,
     'batch_size': 32,
     'train_image_size': None,
     'max_number_of_steps': None,
+    'max_num_batches': None,
     'checkpoint_path': None,
     'checkpoint_exclude_scopes': None,
     'trainable_scopes': None,
     'ignore_missing_vars': False,
     'attention_module': None,
-
+    'eval_dir': '/tmp/tfmodel/',
+    'eval_image_size': None,
+    'eval_interval_secs': 600
 }
 
 with open('settings.json', 'w') as settings:

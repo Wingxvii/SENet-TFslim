@@ -43,9 +43,13 @@
   "batch_size": 32,
   "train_image_size": null,
   "max_number_of_steps": null,
+  "max_num_batches": null,
   "checkpoint_path": null,
   "checkpoint_exclude_scopes": null,
   "trainable_scopes": null,
   "ignore_missing_vars": false,
-  "attention_module": null
+  "attention_module": null,
+  "eval_dir": "/tmp/tfmodel/",
+  "eval_image_size": null,
+  "eval_interval_secs": 600
 }
