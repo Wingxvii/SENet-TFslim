@@ -1,6 +1,6 @@
 {
   "master": "",
-  "train_dir": "/tmp/tfmodel/",
+  "train_dir": "C:/Users/turnt/OneDrive/Desktop/Rob0 Workspace/Scene_labeler/data",
   "num_clones": 1,
   "clone_on_cpu": false,
   "worker_replicas": 1,
@@ -36,7 +36,7 @@
   "moving_average_decay": null,
   "dataset_name": "cifar10",
   "dataset_split_name": "train",
-  "dataset_dir": "/tmp/cifar10/",
+  "dataset_dir": "C:/Users/turnt/OneDrive/Desktop/Rob0 Workspace/Scene_labeler/data",
   "labels_offset": 0,
   "model_name": "resnet_v1_50",
   "preprocessing_name": null,

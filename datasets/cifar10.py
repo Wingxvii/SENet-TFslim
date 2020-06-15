@@ -29,11 +29,11 @@ from datasets import dataset_utils
 
 slim = tf.contrib.slim
 
-_FILE_PATTERN = 'cifar10_%s.tfrecord'
+_FILE_PATTERN = 'empire_%s.record'
 
-SPLITS_TO_SIZES = {'train': 50000, 'test': 10000}
+SPLITS_TO_SIZES = {'train': 1887, 'test': 340}
 
-_NUM_CLASSES = 10
+_NUM_CLASSES = 3
 
 _ITEMS_TO_DESCRIPTIONS = {
     'image': 'A [32 x 32 x 3] color image.',
@@ -77,7 +77,7 @@ def get_split(split_name, dataset_dir, file_pattern=None, reader=None):
   }
 
   items_to_handlers = {
-      'image': slim.tfexample_decoder.Image(shape=[32, 32, 3]),
+      'image': slim.tfexample_decoder.Image(shape=[72, 72, 3]),
       'label': slim.tfexample_decoder.Tensor('image/class/label'),
   }
 
