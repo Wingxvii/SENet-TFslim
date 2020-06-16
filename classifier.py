@@ -2,10 +2,20 @@ import os
 
 import tensorflow as tf
 import os
+from PIL import Image
 import numpy as np
 import cv2
 from preprocessing import preprocessing_factory
 from google.protobuf import text_format
+
+
+def convert_to_opencv(image):
+
+    # RGB -> BGR conversion is performed as well.
+    image = image.convert('RGB')
+    r, g, b = np.array(image).T
+    cv_image = np.array([b, g, r]).transpose()
+    return cv_image
 
 
 def main(_):
@@ -27,12 +37,6 @@ def main(_):
     # Display the graph inline.
     graph_clone.as_graph_def()
 
-    '''
-    # Import the TF graph
-    with tf.io.gfile.GFile('C:/Users/turnt/OneDrive/Desktop/Rob0 Workspace/Scene_labeler/data/graph.pbtxt', 'rb') as f:
-        graph_def = f.read()
-        tf.import_graph_def(graph_def, name='')
-    '''
     # Create a list of labels.
     with open('C:/Users/turnt/OneDrive/Desktop/Rob0 Workspace/Scene_labeler/classes.txt', 'rt') as lf:
       for l in lf:
@@ -49,7 +53,7 @@ def main(_):
 
     image = image_preprocessing_fn(image, eval_image_size, eval_image_size)
 
-    image = convert_to_opencv(image)
+    image = cv2.convert_to_opencv(image)
 
     output_layer = 'loss:0'
     input_node = 'Placeholder:0'
