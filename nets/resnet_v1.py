@@ -262,7 +262,7 @@ def resnet_v1(inputs,
             end_points[sc.name + '/spatial_squeeze'] = net
           end_points['predictions'] = slim.softmax(net, scope='predictions')        
         return net, end_points
-resnet_v1.default_image_size = 224
+resnet_v1.default_image_size = 72
 
 
 def resnet_v1_block(scope, base_depth, num_units, stride, attention_module):
