@@ -5,22 +5,34 @@ import os
 import numpy as np
 import cv2
 from preprocessing import preprocessing_factory
+from google.protobuf import text_format
 
 
 def main(_):
 
-    graph_def = tf.compat.v1.GraphDef()
     labels = ['map', 'game', 'dialogue']
 
-    # These are set to the default names from exported models, update as needed.
-    filename = "model.pb"
-    labels_filename = "labels.txt"
+    filename = "graph.pbtxt"
+    labels_filename = "classes.txt"
 
+    # Let's read our pbtxt file into a Graph protobuf
+    f = open('C:/Users/turnt/OneDrive/Desktop/Rob0 Workspace/Scene_labeler/data/graph.pbtxt', "r")
+    graph_def_proto = text_format.Parse(f.read(), tf.GraphDef())
+
+    # Import the graph protobuf into our new graph.
+    graph_clone = tf.Graph()
+    with graph_clone.as_default():
+      tf.import_graph_def(graph_def=graph_def_proto, name="")
+
+    # Display the graph inline.
+    graph_clone.as_graph_def()
+
+    '''
     # Import the TF graph
     with tf.io.gfile.GFile('C:/Users/turnt/OneDrive/Desktop/Rob0 Workspace/Scene_labeler/data/graph.pbtxt', 'rb') as f:
-        graph_def.ParseFromString(f.read())
+        graph_def = f.read()
         tf.import_graph_def(graph_def, name='')
-
+    '''
     # Create a list of labels.
     with open('C:/Users/turnt/OneDrive/Desktop/Rob0 Workspace/Scene_labeler/classes.txt', 'rt') as lf:
       for l in lf:
