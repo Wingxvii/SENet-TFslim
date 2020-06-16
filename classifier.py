@@ -8,16 +8,6 @@ import cv2
 from preprocessing import preprocessing_factory
 from google.protobuf import text_format
 
-
-def convert_to_opencv(image):
-
-    # RGB -> BGR conversion is performed as well.
-    image = image.convert('RGB')
-    r, g, b = np.array(image).T
-    cv_image = np.array([b, g, r]).transpose()
-    return cv_image
-
-
 def main(_):
 
     labels = ['map', 'game', 'dialogue']
@@ -53,7 +43,7 @@ def main(_):
 
     image = image_preprocessing_fn(image, eval_image_size, eval_image_size)
 
-    image = cv2.convert_to_opencv(image)
+    # image = cv2.cvtColor(image, cv2.COLOR_RGB2BGR)
 
     output_layer = 'loss:0'
     input_node = 'Placeholder:0'
