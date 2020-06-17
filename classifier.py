@@ -10,13 +10,13 @@ from google.protobuf import text_format
 
 def main(_):
 
-    labels = ['map', 'game', 'dialogue']
+    labels = []
 
     filename = "graph.pbtxt"
     labels_filename = "classes.txt"
 
     # Let's read our pbtxt file into a Graph protobuf
-    f = open('C:/Users/turnt/OneDrive/Desktop/Rob0 Workspace/Scene_labeler/data/graph.pbtxt', "r")
+    f = open('C:/Users/turnt/OneDrive/Desktop/Rob0Workspace/Scene_labeler/data/graph.pbtxt', "r")
     graph_def_proto = text_format.Parse(f.read(), tf.GraphDef())
 
     # Import the graph protobuf into our new graph.
@@ -28,12 +28,12 @@ def main(_):
     graph_clone.as_graph_def()
 
     # Create a list of labels.
-    with open('C:/Users/turnt/OneDrive/Desktop/Rob0 Workspace/Scene_labeler/classes.txt', 'rt') as lf:
+    with open('C:/Users/turnt/OneDrive/Desktop/Rob0Workspace/Scene_labeler/classes.txt', 'rt') as lf:
       for l in lf:
         labels.append(l.strip())
 
     # Load from a file
-    image = Image.open('C:/Users/turnt/OneDrive/Desktop/Rob0 Workspace/Scene_labeler/input_images/test/001.jpg')
+    image = Image.open('C:/Users/turnt/OneDrive/Desktop/Rob0Workspace/Scene_labeler/input_images/test/001.jpg')
 
     image_preprocessing_fn = preprocessing_factory.get_preprocessing(
         'resnet_v1_50',
@@ -45,8 +45,8 @@ def main(_):
 
     # image = cv2.cvtColor(image, cv2.COLOR_RGB2BGR)
 
-    output_layer = 'loss:0'
-    input_node = 'Placeholder:0'
+    output_layer = 'concat:0'
+    input_node = 'Shape:0'
 
     with tf.compat.v1.Session() as sess:
         try:
@@ -54,7 +54,6 @@ def main(_):
             predictions, = sess.run(prob_tensor, {input_node: image})
         except KeyError:
             print("Couldn't find classification output layer: " + output_layer + ".")
-            print("Verify this a model exported from an Object Detection project.")
             exit(-1)
 
 
@@ -69,8 +68,6 @@ def main(_):
         truncated_probablity = np.float64(np.round(p,8))
         print (labels[label_index], truncated_probablity)
         label_index += 1
-
-
 
 
 if __name__ == '__main__':

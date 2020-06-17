@@ -1,6 +1,6 @@
 {
   "master": "",
-  "train_dir": "C:/Users/turnt/OneDrive/Desktop/Rob0 Workspace/Scene_labeler/data",
+  "train_dir": "C:/Users/turnt/OneDrive/Desktop/Rob0Workspace/Scene_labeler/data",
   "num_clones": 1,
   "clone_on_cpu": false,
   "worker_replicas": 1,
@@ -35,8 +35,8 @@
   "replicas_to_aggregate": 1,
   "moving_average_decay": null,
   "dataset_name": "cifar10",
-  "dataset_split_name": "test",
-  "dataset_dir": "C:/Users/turnt/OneDrive/Desktop/Rob0 Workspace/Scene_labeler/data",
+  "dataset_split_name": "train",
+  "dataset_dir": "C:/Users/turnt/OneDrive/Desktop/Rob0Workspace/Scene_labeler/data",
   "labels_offset": 0,
   "model_name": "resnet_v1_50",
   "preprocessing_name": null,
@@ -44,12 +44,12 @@
   "train_image_size": null,
   "max_number_of_steps": null,
   "max_num_batches": null,
-  "checkpoint_path": "C:/Users/turnt/OneDrive/Desktop/Rob0 Workspace/Scene_labeler/data",
+  "checkpoint_path": "C:/Users/turnt/OneDrive/Desktop/Rob0Workspace/Scene_labeler/data",
   "checkpoint_exclude_scopes": null,
   "trainable_scopes": null,
   "ignore_missing_vars": false,
   "attention_module": null,
-  "eval_dir": "C:/Users/turnt/OneDrive/Desktop/Rob0 Workspace/Scene_labeler/data",
+  "eval_dir": null,
   "eval_image_size": null,
   "eval_interval_secs": 600
 }
