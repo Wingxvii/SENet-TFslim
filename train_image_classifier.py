@@ -20,16 +20,19 @@ from __future__ import print_function
 
 import tensorflow as tf
 import json
+import os
 
 from datasets import dataset_factory
 from deployment import model_deploy
 from nets import nets_factory
 from preprocessing import preprocessing_factory
+from tensorflow.python.tools import freeze_graph
 
 slim = tf.contrib.slim
 
 with open('settings.json') as f:
     data = json.load(f);
+
 
 def _configure_learning_rate(num_samples_per_epoch, global_step):
     """Configures the learning rate.
@@ -70,6 +73,8 @@ def _configure_learning_rate(num_samples_per_epoch, global_step):
     else:
         raise ValueError('learning_rate_decay_type [%s] was not recognized' %
                          data['learning_rate_decay_type'])
+
+
 
 
 def _configure_optimizer(learning_rate):
@@ -357,6 +362,7 @@ def main(_):
         # Merge all summaries together.
         summary_op = tf.summary.merge(list(summaries), name='summary_op')
 
+
         ###########################
         # Kicks off the training. #
         ###########################
@@ -372,7 +378,6 @@ def main(_):
             save_summaries_secs=data['save_summaries_secs'],
             save_interval_secs=data['save_interval_secs'],
             sync_optimizer=optimizer if data['sync_replicas'] else None)
-
 
 if __name__ == '__main__':
     tf.app.run()

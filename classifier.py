@@ -12,20 +12,25 @@ def main(_):
 
     labels = []
 
-    filename = "graph.pbtxt"
-    labels_filename = "classes.txt"
-
+    '''
     # Let's read our pbtxt file into a Graph protobuf
-    f = open('C:/Users/turnt/OneDrive/Desktop/Rob0Workspace/Scene_labeler/data/graph.pbtxt', "r")
-    graph_def_proto = text_format.Parse(f.read(), tf.GraphDef())
+    f = open("C:/Users/turnt/OneDrive/Desktop/Rob0Workspace/Scene_labeler/data/gr.pbtxt", "r")
+    graph_protobuf = text_format.Parse(f.read(), tf.GraphDef())
 
     # Import the graph protobuf into our new graph.
     graph_clone = tf.Graph()
     with graph_clone.as_default():
-      tf.import_graph_def(graph_def=graph_def_proto, name="")
+        tf.import_graph_def(graph_def=graph_protobuf, name="")
 
     # Display the graph inline.
     graph_clone.as_graph_def()
+
+    '''
+    graph_def = tf.compat.v1.GraphDef()
+
+    with tf.io.gfile.GFile("C:/Users/turnt/OneDrive/Desktop/Rob0Workspace/Scene_labeler/data/gr.pb", 'rb') as f:
+        graph_def.ParseFromString(f.read())
+        tf.import_graph_def(graph_def, name='')
 
     # Create a list of labels.
     with open('C:/Users/turnt/OneDrive/Desktop/Rob0Workspace/Scene_labeler/classes.txt', 'rt') as lf:
@@ -45,10 +50,17 @@ def main(_):
 
     # image = cv2.cvtColor(image, cv2.COLOR_RGB2BGR)
 
-    output_layer = 'concat:0'
-    input_node = 'Shape:0'
+    output_layer = 'prefetch_queue/fifo_queue:0'
+    input_node = 'prefetch_queue/fifo_queue:0'
 
-    with tf.compat.v1.Session() as sess:
+    '''
+    output_layer = 'resnet_v1_50/conv1/Relu:0' OR 'resnet_v1_50/block4/unit_3/bottleneck_v1/Relu:0'
+    
+    input_node = 'resnet_v1_50/SpatialSqueeze:0'
+
+    '''
+
+    with tf.Session() as sess:
         try:
             prob_tensor = sess.graph.get_tensor_by_name(output_layer)
             predictions, = sess.run(prob_tensor, {input_node: image})
